@@ -1,12 +1,14 @@
 package com.endava.FirstMicroservice.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "CTF")
+@Document(collection = "CTF")
 public class Serie {
     @Id
     private String _id;
+    @Indexed(unique = true)
     private Integer anime_id;
     private String name;
     private String genre;
