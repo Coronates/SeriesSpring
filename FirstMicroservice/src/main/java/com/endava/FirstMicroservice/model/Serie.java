@@ -17,7 +17,7 @@ public class Serie {
     private Integer episodes;
     private Double rating;
     private String img;
-    private String studio;
+    private String studios;
     private String source;
     private String main_cast;
     private Integer c1;
