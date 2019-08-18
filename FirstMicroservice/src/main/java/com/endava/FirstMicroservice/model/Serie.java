@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Serie {
     @Id
     private String _id;
-//    @Indexed(unique = true)
     private Integer anime_id;
     private String name;
     private String genre;
