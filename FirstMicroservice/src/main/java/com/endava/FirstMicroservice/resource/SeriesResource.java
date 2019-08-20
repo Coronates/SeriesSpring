@@ -46,7 +46,7 @@ public class SeriesResource {
                 .findAny().orElse(null);
         RequiredSerie rq=new RequiredSerie(anime.getAnime_id(),anime.getName(),anime.getGenre().split(","),
                 anime.getType(),anime.getEpisodes(),anime.getRating(),anime.getStudios().split(","), anime.getSource(),
-                anime.getMain_cast().split(","));
+                anime.getMain_cast().split(";"));
         return rq;
 
 
