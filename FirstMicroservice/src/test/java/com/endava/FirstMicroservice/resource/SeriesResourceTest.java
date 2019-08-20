@@ -45,5 +45,3 @@ public class SeriesResourceTest {
         Assert.assertEquals(Arrays.<Integer>asList(32935,28891,20583,24415,16894,30230,11771), result);
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
