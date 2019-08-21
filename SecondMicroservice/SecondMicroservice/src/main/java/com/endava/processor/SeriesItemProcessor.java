@@ -1,41 +1,14 @@
 package com.endava.processor;
 
 import com.endava.model.Anime;
-import org.slf4j.LoggerFactory;
+import com.endava.model.AnimeList;
+import com.endava.resource.AnimeResource;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.util.logging.Logger;
-
-
-public class SeriesItemProcessor implements ItemProcessor<Anime,Anime> {
-
-    private static final Logger LOG = (Logger) LoggerFactory.getLogger(SeriesItemProcessor.class);
-
+public class SeriesItemProcessor implements ItemProcessor<Integer, Anime> {
     @Override
-    public Anime process(Anime item) throws Exception {
-        Integer animeId=item.getAnime_id();
-        String name = item.getName();
-        String type= item.getType();
-        Double rating = item.getRating();
-        String source= item.getSource();
-
-        Anime anime = new Anime();
-        anime.setAnime_id(animeId);
-        anime.setType(type);
-        anime.setName(name);
-        anime.setRating(rating);
-        anime.setSource(source);
-
-        Anime anime2 = new Anime();
-        anime.setAnime_id(animeId);
-        anime.setType(type);
-        anime.setName(name);
-        anime.setRating(rating);
-        anime.setSource(source);
-
-
-        LOG.info("Convirtiendo ("+item+") a ("+anime+")");
-
-        return anime;
+    public Anime process(Integer id) throws Exception {
+        AnimeResource ar=new AnimeResource();
+        return ar.getAnimeById(id);
     }
 }

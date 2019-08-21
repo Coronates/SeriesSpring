@@ -16,15 +16,11 @@ public class AnimeResource {
 
 
     @GetMapping("/anime/{anime_id}")
-    Anime getAnimeById(@PathVariable Integer anime_id){
+    public Anime getAnimeById(@PathVariable Integer anime_id){
        Anime anime = restTemplate.getForObject("localhost:8889/anime/"+anime_id, Anime.class);
 
         return anime;
-
-
-
-
-
     }
+
 
 }
