@@ -7,18 +7,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
-class RESTAnimeReaderIds implements ItemReader<Integer> {
+public class RESTAnimeReaderIds implements ItemReader<Integer> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RESTAnimeReaderIds.class);
 
-    private final String apiUrl;
+
     private final RestTemplate restTemplate;
     private int nextAnimeIndex;
     private List<Integer> animes;
 
 
-    RESTAnimeReaderIds(String apiUrl, RestTemplate restTemplate) {
-        this.apiUrl = apiUrl;
+    RESTAnimeReaderIds(RestTemplate restTemplate) {
+
         this.restTemplate = restTemplate;
         nextAnimeIndex = 0;
     }
@@ -43,10 +43,10 @@ class RESTAnimeReaderIds implements ItemReader<Integer> {
     }
 
     private List<Integer> getAnimesIdsFromAPI() {
-        LOGGER.debug("Anime ids from external API by using the url: {}", apiUrl);
-        ResponseEntity<Integer[]> response = restTemplate.getForEntity(apiUrl, Integer[].class);
-        Integer[] ids = response.getBody();
-        LOGGER.debug("Found {} animes", ids.length);
+        LOGGER.debug("Anime ids from external API by using the url: {}");
+        Integer[] ids = restTemplate.getForObject("",Integer[].class);
+
+        LOGGER.debug("Found {} animes", ids);
         return Arrays.asList(ids);
     }
 }

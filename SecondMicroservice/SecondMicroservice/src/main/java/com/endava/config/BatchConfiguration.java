@@ -37,8 +37,8 @@ public class BatchConfiguration {
 
 
     @Bean
-    public ItemReader<Integer> restAnimeReader(Environment environment, RestTemplate restTemplate) {
-        return new RESTAnimeReaderIds(environment.getRequiredProperty(url), restTemplate);
+    public ItemReader<Integer> restAnimeReader(RestTemplate restTemplate) {
+        return new RESTAnimeReaderIds(restTemplate);
     }
 
     @Bean
