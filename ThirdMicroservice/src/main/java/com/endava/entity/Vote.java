@@ -15,7 +15,7 @@ public class Vote {
     private Integer movie_id;
 
     @Column(name="when")
-    private Date when;
+    private String when;
 
     @Column(name="user")
     private String user;

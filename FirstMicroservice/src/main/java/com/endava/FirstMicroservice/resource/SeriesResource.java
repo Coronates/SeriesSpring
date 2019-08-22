@@ -20,8 +20,6 @@ public class SeriesResource {
         this.serieRepository = serieRepository;
     }
 
-
-
     //first method, it returns a list of anime_ids, the method has two optional parameters to filter de anime_ids
     //by its genre and the number of responses
     @GetMapping("/anime")

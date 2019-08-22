@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class VoteAnimeService {
     @Autowired
@@ -25,7 +28,10 @@ public class VoteAnimeService {
         this.baseUrl = baseUrl;
     }
 
-    public String grabResult(){
-        return template.getForObject(baseUrl+"since{date}", String.class, "15/08/2019 16:29:27 144599");
+    public List<Vote> getVotesAsObjects(){
+         String data= template.getForObject("https://peaceful-tor-90220.herokuapp.com/votes", String.class);
+         List<String> listObjects= Arrays.asList(data.split("\\{\\}"));
+
+
     }
 }

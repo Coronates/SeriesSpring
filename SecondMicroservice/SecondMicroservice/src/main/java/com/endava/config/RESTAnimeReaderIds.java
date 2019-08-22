@@ -13,12 +13,14 @@ public class RESTAnimeReaderIds implements ItemReader<Integer> {
 
 
     private final RestTemplate restTemplate;
+    private final String urlll;
     private int nextAnimeIndex;
     private List<Integer> animes;
 
 
-    RESTAnimeReaderIds(RestTemplate restTemplate) {
-
+    
+    RESTAnimeReaderIds(String urll,RestTemplate restTemplate) {
+        this.urlll = urll;
         this.restTemplate = restTemplate;
         nextAnimeIndex = 0;
     }
@@ -43,8 +45,8 @@ public class RESTAnimeReaderIds implements ItemReader<Integer> {
     }
 
     private List<Integer> getAnimesIdsFromAPI() {
-        LOGGER.debug("Anime ids from external API by using the url: {}");
-        Integer[] ids = restTemplate.getForObject("",Integer[].class);
+        LOGGER.debug("Anime ids from external API by using the url: {}"+urlll);
+        Integer[] ids = restTemplate.getForObject(urlll,Integer[].class);
 
         LOGGER.debug("Found {} animes", ids);
         return Arrays.asList(ids);
