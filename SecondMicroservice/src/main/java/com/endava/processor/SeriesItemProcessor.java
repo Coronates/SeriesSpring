@@ -1,12 +1,9 @@
 package com.endava.processor;
 
 import com.endava.model.Anime;
-import com.endava.model.AnimeList;
-import com.endava.resource.AnimeResource;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.logging.Logger;
@@ -14,8 +11,10 @@ import java.util.logging.Logger;
 public class SeriesItemProcessor implements ItemProcessor<Integer, Anime> {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SeriesItemProcessor.class);
+    private static final String URL  = "http://localhost:8889/anime/";
     @Autowired
     RestTemplate restTemplate;
+
     @Override
     public Anime process(Integer id) throws Exception {
 
@@ -26,8 +25,7 @@ public class SeriesItemProcessor implements ItemProcessor<Integer, Anime> {
 
     public Anime getAnimeById(Integer anime_id){
 
-        Anime anime = restTemplate.getForObject("localhost:8889/anime/"+anime_id, Anime.class);
-
+        Anime anime = restTemplate.getForObject(URL+anime_id, Anime.class);
         return anime;
     }
 }

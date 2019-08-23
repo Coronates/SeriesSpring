@@ -2,6 +2,7 @@ package com.endava.config;
 
 import com.endava.model.Anime;
 import com.endava.processor.SeriesItemProcessor;
+import com.endava.reader.RESTAnimeReaderIds;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -17,7 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -30,6 +32,7 @@ public class BatchConfiguration {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
 
+    private Resource outputResource = new FileSystemResource("output/animes.csv");
 
     @Bean
     @StepScope
@@ -47,7 +50,7 @@ public class BatchConfiguration {
     @Bean
     public FlatFileItemWriter<Anime> writer() {
         FlatFileItemWriter<Anime> writer = new FlatFileItemWriter<Anime>();
-        writer.setResource(new ClassPathResource("resources/series.csv"));
+        writer.setResource(outputResource);
         DelimitedLineAggregator<Anime> lineAggregator = new DelimitedLineAggregator<Anime>();
         lineAggregator.setDelimiter(",");
         BeanWrapperFieldExtractor<Anime> fieldExtractor = new BeanWrapperFieldExtractor<Anime>();

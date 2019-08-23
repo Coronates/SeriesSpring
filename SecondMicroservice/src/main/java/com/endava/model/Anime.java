@@ -1,7 +1,6 @@
 package com.endava.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Data
 public class Anime {
@@ -15,7 +14,4 @@ public class Anime {
     private String[] studios;
     private String source;
     private String[] main_cast;
-
-
-
 }

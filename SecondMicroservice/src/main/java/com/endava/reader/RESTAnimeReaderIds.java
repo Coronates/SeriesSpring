@@ -1,9 +1,10 @@
-package com.endava.config;
-import org.slf4j.LoggerFactory;
+package com.endava.reader;
+
 import org.slf4j.Logger;
-import org.springframework.web.client.RestTemplate;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,14 +14,14 @@ public class RESTAnimeReaderIds implements ItemReader<Integer> {
 
 
     private final RestTemplate restTemplate;
-    private final String urlll;
+    private final String url;
     private int nextAnimeIndex;
     private List<Integer> animes;
 
 
     
-    RESTAnimeReaderIds(String urll,RestTemplate restTemplate) {
-        this.urlll = urll;
+    public RESTAnimeReaderIds(String url, RestTemplate restTemplate) {
+        this.url = url;
         this.restTemplate = restTemplate;
         nextAnimeIndex = 0;
     }
@@ -45,8 +46,8 @@ public class RESTAnimeReaderIds implements ItemReader<Integer> {
     }
 
     private List<Integer> getAnimesIdsFromAPI() {
-        LOGGER.debug("Anime ids from external API by using the url: {}"+urlll);
-        Integer[] ids = restTemplate.getForObject(urlll,Integer[].class);
+        LOGGER.debug("Anime ids from external API by using the url: {}"+url);
+        Integer[] ids = restTemplate.getForObject(url,Integer[].class);
 
         LOGGER.debug("Found {} animes", ids);
         return Arrays.asList(ids);

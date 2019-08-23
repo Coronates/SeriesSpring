@@ -1,4 +1,4 @@
-package com.endava.SecondMicroservice;
+package com.endava.secondMicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
