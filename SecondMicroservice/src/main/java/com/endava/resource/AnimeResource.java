@@ -2,6 +2,7 @@ package com.endava.resource;
 
 import com.endava.processor.SeriesItemProcessor;
 import com.endava.processor.SeriesItemProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/getTop")
+@Slf4j
 public class AnimeResource {
 
     @Autowired
@@ -36,31 +37,39 @@ public class AnimeResource {
         return jobParametersBuilder.toJobParameters();
     }
 
-    @GetMapping("/ByGenre")
-    public void topAnimeByGenre(
+    @GetMapping("/getTop/ByGenre")
+    public String topAnimeByGenre(
             @RequestParam Integer limit,
             @RequestParam String genre) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         String URL = "http://localhost:8889/anime/top?limit="+limit+"&genre="+genre;
         LOG.info(URL);
         jobLauncher.run(job,getJobParameters(URL));
+        return "String";
 
     }
+    @GetMapping("/prueba")
+    public String topAnimeByGenre(){
 
-    @GetMapping("/ByType")
-    public void topAnimeByType(
+        return "hola";
+    }
+
+    @GetMapping("/getTop/ByType")
+    public String topAnimeByType(
             @RequestParam Integer limit,
             @RequestParam String type) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         String URL = "http://localhost:8889/anime/top?limit="+limit+"&type="+type;
         jobLauncher.run(job,getJobParameters(URL));
+        return "success";
     }
 
-    @GetMapping("/ByStudio")
-    public void topAnimeByType(
+    @GetMapping("/getTop/ByStudio")
+    public String topAnimeByType(
             @RequestParam Integer limit,
             @RequestParam String mainCast,
             @RequestParam String studio) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         String URL = "http://localhost:8889/anime/top?limit="+limit+"&mainCast="+mainCast+"&studio="+studio;
         jobLauncher.run(job,getJobParameters(URL));
+        return "Success";
     }
 
 

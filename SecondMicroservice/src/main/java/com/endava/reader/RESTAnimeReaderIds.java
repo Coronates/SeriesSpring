@@ -32,7 +32,7 @@ public class RESTAnimeReaderIds implements ItemReader<Integer> {
         if (listIsEmpty()) {
             animes = getAnimesIdsFromAPI();
         }
-        Integer nextAnimeId=0;
+        Integer nextAnimeId=null;
         if (nextAnimeIndex < animes.size()) {
             nextAnimeId = animes.get(nextAnimeIndex);
             nextAnimeIndex++;

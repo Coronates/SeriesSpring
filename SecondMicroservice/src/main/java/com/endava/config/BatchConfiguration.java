@@ -15,6 +15,7 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +42,7 @@ public class BatchConfiguration {
         return new RESTAnimeReaderIds(urlk,restTemplate);
     }
 
-    @Bean
+    @Bean(name="animeProcessor")
     public SeriesItemProcessor processor() {
         return new SeriesItemProcessor();
     }
@@ -61,8 +62,8 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Job getTop(Step step1) {
-        return jobBuilderFactory.get("getTop")
+    public Job job(Step step1) {
+        return jobBuilderFactory.get("job")
                 .incrementer(new RunIdIncrementer())
                 .flow(step1)
                 .end()
@@ -70,7 +71,7 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(ItemReader<Integer> reader, SeriesItemProcessor animeProcessor, FlatFileItemWriter<Anime> writer) {
+    public Step step1(ItemReader<Integer> reader, @Qualifier("animeProcessor") SeriesItemProcessor animeProcessor, FlatFileItemWriter<Anime> writer) {
         return stepBuilderFactory.get("step1")
                 .<Integer, Anime>chunk(1)
                 .reader(reader)
