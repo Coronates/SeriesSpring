@@ -7,31 +7,42 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Service
 public class VoteAnimeService {
     @Autowired
     private VoteRepository voteRepository;
-    public Vote createVote(Vote vote) {
-        return voteRepository.save(vote);
-    }
+
+
+    private String baseUrl;
+    private final String URI = "https://peaceful-tor-90220.herokuapp.com/votes?since=";
     @Autowired
     private RestTemplate template;
 
-    private String baseUrl;
+//    @Autowired
+//    public VoteAnimeService(RestTemplate template,@Value"${service.url}"baseUrl){
+//        this.template = template;
+//        this.baseUrl = baseUrl;
+//    }
 
-    @Autowired
-    public VoteAnimeService(RestTemplate template,@Value"${service.url}"baseUrl){
-        this.template = template;
-        this.baseUrl = baseUrl;
+    public Vote save(Vote vote) {
+        return voteRepository.save(vote);
     }
 
-    public List<Vote> getVotesAsObjects(){
-         String data= template.getForObject("https://peaceful-tor-90220.herokuapp.com/votes", String.class);
-         List<String> listObjects= Arrays.asList(data.split("\\{\\}"));
-
-
+    public Iterable<Vote> save(List<Vote> votes){
+        return voteRepository.saveAll(votes);
     }
+    public Iterable<Vote> list(){
+        return voteRepository.findAll();
+    }
+
+
+
+
+
 }

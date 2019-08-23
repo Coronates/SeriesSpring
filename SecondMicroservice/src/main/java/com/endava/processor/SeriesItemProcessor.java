@@ -30,22 +30,3 @@ public class SeriesItemProcessor implements ItemProcessor<Integer, Anime> {
     }
 }
 
-
-
-
-//
-//    private static final Logger LOGG = LoggerFactory.getLogger(AnimeItemProcessor.class);
-//    private static final String URI  = "http://localhost:8085/anime/";
-//
-//    @Override
-//    public AnimeDTO processo(Integer animeID) throws Exception {
-//
-//        return fetchAnimeDataFromAPI(animeID, new RestTemplate());
-//    }
-//
-//    private AnimeDTO fetchAnimeDataFromAPI(Integer animeID, RestTemplate restTemplate)
-//    {
-//        AnimeDTO anime = restTemplate.getForObject(URI+animeID,AnimeDTO[].class)[0];
-//        LOG.info(anime.getName());
-//        return anime;
-//    }
